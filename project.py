@@ -1,4 +1,4 @@
-VERSION = "v0.0.1"
+VERSION = "v0.1.0"
 
 def print_version():
     print(VERSION)
