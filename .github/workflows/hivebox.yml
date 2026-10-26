@@ -17,4 +17,7 @@ jobs:
           pip install -r requirements-dev.txt
       - name: run pylint
         run: python -m pylint hivebox.py test_hivebox.py project.py
-              
+      - name: Lint Dockerfile
+        uses: hadolint/hadolint-action@v3.5.0
+        with:
+          dockerfile: "Dockerfile"     
