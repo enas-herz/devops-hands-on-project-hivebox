@@ -28,5 +28,6 @@ jobs:
       - name: TEST /version 
         run: |
           docker run --detach -p 127.0.0.1:80:5000/tcp hivebox:v0.1.0  
-          curl http://127.0.0.1:80/version -s | grep "v0.1.0"  
+          sleep 5
+          curl --show-error --silent http://127.0.0.1:80/version | grep "v0.1.0"  
               
