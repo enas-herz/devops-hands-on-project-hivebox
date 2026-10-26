@@ -3,7 +3,7 @@ name: hivebox workflow
 on: [push, pull_request]
 
 jobs:
-  lint:
+  ci:
 
     runs-on: ubuntu-latest
     steps:
@@ -20,4 +20,6 @@ jobs:
       - name: Lint Dockerfile
         uses: hadolint/hadolint-action@v3.5.0
         with:
-          dockerfile: "Dockerfile"     
+          dockerfile: "Dockerfile" 
+      - name: run pytest
+        run: pytest              
