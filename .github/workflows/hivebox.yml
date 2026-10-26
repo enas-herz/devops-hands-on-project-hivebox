@@ -23,3 +23,5 @@ jobs:
           dockerfile: "Dockerfile" 
       - name: run pytest
         run: pytest              
+      - name: build docker image
+        run: docker build --tag hivebox:v0.1.0 .        
