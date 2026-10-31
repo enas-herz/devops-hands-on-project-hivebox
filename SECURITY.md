@@ -9,4 +9,4 @@
 
 ## Reporting a Vulnerability
 
-You can report a vulnerability by contacting us on our GitHub account
+You can report a vulnerability by contacting us on our GitHub account https://github.com/enas-herz
