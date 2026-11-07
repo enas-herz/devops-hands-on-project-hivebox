@@ -1,4 +1,5 @@
 """return version and tempreture"""
+import os
 import datetime as dt
 import requests
 from flask import Flask
@@ -15,9 +16,9 @@ def print_version():
 def print_temperature():
     """ Get Tempreture from sensor"""
     fresh_sensors = []
-    sensebox_ids = ['5eba5fbad46fb8001b799786',
-                    '5c21ff8f919bf8001adf2488',
-                    '5ade1acf223bd80019a1011c']
+    sensebox_ids = os.getenv("SENSEBOX_IDS",default="5eba5fbad46fb8001b799786,"
+    "5c21ff8f919bf8001adf2488,"
+    "5ade1acf223bd80019a1011c").split(',')
     for sensebox_id in sensebox_ids :
         try:
             r = requests.get('https://api.opensensemap.org/boxes/' + sensebox_id, timeout=20)
