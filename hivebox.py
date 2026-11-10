@@ -3,10 +3,11 @@ import os
 import datetime as dt
 import requests
 from flask import Flask
+from prometheus_flask_exporter import PrometheusMetrics
 from project import VERSION
 
 app = Flask(__name__)
-
+metrics = PrometheusMetrics(app)
 @app.route("/version")
 def print_version():
     """"return version"""
