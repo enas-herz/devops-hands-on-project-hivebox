@@ -1,11 +1,13 @@
 """return version and tempreture"""
+import os
 import datetime as dt
 import requests
 from flask import Flask
+from prometheus_flask_exporter import PrometheusMetrics
 from project import VERSION
 
 app = Flask(__name__)
-
+metrics = PrometheusMetrics(app)
 @app.route("/version")
 def print_version():
     """"return version"""
@@ -15,9 +17,9 @@ def print_version():
 def print_temperature():
     """ Get Tempreture from sensor"""
     fresh_sensors = []
-    sensebox_ids = ['5eba5fbad46fb8001b799786',
-                    '5c21ff8f919bf8001adf2488',
-                    '5ade1acf223bd80019a1011c']
+    sensebox_ids = os.getenv("SENSEBOX_IDS",default="5eba5fbad46fb8001b799786,"
+    "5c21ff8f919bf8001adf2488,"
+    "5ade1acf223bd80019a1011c").split(',')
     for sensebox_id in sensebox_ids :
         try:
             r = requests.get('https://api.opensensemap.org/boxes/' + sensebox_id, timeout=20)
@@ -38,5 +40,13 @@ def print_temperature():
         sum_fresh_sensors = sum(fresh_sensors)
         len_fresh_sensors = len(fresh_sensors)
         avg_fresh_sensors = sum_fresh_sensors/ len_fresh_sensors
-        return {"temperature":avg_fresh_sensors}
+        int_temperature = int(avg_fresh_sensors )
+        status = ""
+        if int_temperature <= 10:
+            status = "Too Cold"
+        elif 10 < int_temperature <37:
+            status = "Good"
+        elif int_temperature >= 37:
+            status = "Too Hot"
+        return {"temperature":avg_fresh_sensors,"status":status}
     return {"temperature":"No fresh temperature data available"}
