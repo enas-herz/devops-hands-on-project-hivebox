@@ -53,3 +53,4 @@ Here is a pre-start checklist:
 ## Implementation
 
 ** ADD YOUR IMPLEMENTATION DOCUMENTATION HERE **
+Old pull requests and history are kept in the archived repository: https://github.com/enas-herz/hivebox-fork-archive
